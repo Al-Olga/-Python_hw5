@@ -7,13 +7,16 @@
 
 # Входные и выходные данные хранятся в отдельных текстовых файлах.
 
-with open('code_file_ex.txt','w') as my_file:
+# создаем файл
+with open('file_text.txt','w') as my_file:
     my_file.write('111111444443333377777rrrrrdddddaaaaa')
 
-my_file = open('code_file_ex.txt','r') 
+# читаем из файла
+my_file = open('file_text.txt','r') 
 string = my_file.read()
 my_file.close()
 
+# кодируем
 new_text = []
 count = 1
 for i in range(len(string)-1):
@@ -22,11 +25,25 @@ for i in range(len(string)-1):
             count += 1
         else:
             a = string[i]
-            strk = str(count) + ' ' + string[i]
-            new_text.append(strk)
+            new_text.append(str(count) + ' ' + string[i])
             count = 1
-strk = str(count) + ' ' + string[i]
-new_text.append(strk)
+new_text.append(str(count) + ' ' + string[i])
 
-with open('code_file_in.txt','w') as my_file:
+# записываем код в файл
+with open('file_code.txt','w') as my_file:
     my_file.write(','.join(new_text))
+
+#читаем код из файла
+my_file = open('file_code.txt','r') 
+text = my_file.read().split(',')
+my_file.close()
+
+# раскодируем
+new_text = []
+text_cod = ''
+for word in text:
+    new_text = word.split(' ')
+    text_cod=text_cod+(str(new_text[1])*int(new_text[0]))
+
+with open('file_code_out.txt','w') as my_file:
+    my_file.write(text_cod)
